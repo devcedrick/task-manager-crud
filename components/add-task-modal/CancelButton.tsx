@@ -7,7 +7,7 @@ interface CancelButtonProps {
 
 const CancelButton: React.FC<CancelButtonProps> = ({ onClick }) => {
   return (
-    <button className='button bg-muted text-background' onClick={onClick}>
+    <button type='button' className='button bg-muted text-background' onClick={onClick}>
       <X className='inline mr-2' size={18}/>
       Cancel
     </button>

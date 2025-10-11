@@ -3,6 +3,7 @@ import { Space_Mono } from "next/font/google";
 import "./globals.css";
 
 import Header from "@/components/header/Header";
+import { Toaster } from "sonner";
 
 const spaceMono = Space_Mono({
   variable: "--font-space-mono",
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body
         className={`${spaceMono.variable} antialiased relative`}
       >
+        <Toaster position="top-center" richColors />
         <Header />
         {children}
       </body>
