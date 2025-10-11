@@ -13,14 +13,17 @@ interface AddTaskModalProps {
 }
 
 const AddTaskModal: React.FC<AddTaskModalProps> = ({ isOpen, onClose }) => {
-  const [title, setTitle] = useState('');
-  const [desc, setDesc] = useState('');
+  const [newTask, setNewTask] = useState({
+    title: '',
+    desc: ''
+  });
+  
   const [isError, setIsError] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmitTask = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (title.trim() === '') {
+    if (newTask.title.trim() === '') {
       setIsError(true);
       return;
     }
@@ -29,7 +32,7 @@ const AddTaskModal: React.FC<AddTaskModalProps> = ({ isOpen, onClose }) => {
     try {
       const { error } = await supabase
         .from('tasks')
-        .insert({ title: title.trim(), desc: desc })
+        .insert({ title: newTask.title.trim(), desc: newTask.desc})
         .single();
 
       if (error) {
@@ -37,13 +40,11 @@ const AddTaskModal: React.FC<AddTaskModalProps> = ({ isOpen, onClose }) => {
         return;
       }
 
-      setTitle('');
-      setDesc('');
+      setNewTask({ title: '', desc: '' });
       onClose();
 
       toast.success('Task added successfully!');
     } catch (err) {
-      console.log('Unexpected error creating task');
       toast.error('Unexpected error creating task');
     } finally {
       setIsSubmitting(false);
@@ -59,13 +60,13 @@ const AddTaskModal: React.FC<AddTaskModalProps> = ({ isOpen, onClose }) => {
       <h1 className='ml-2 mb-3 text-2xl font-bold'>Add New Task</h1>
       <form onSubmit={handleSubmitTask} className=' flex flex-col gap-5'>
           <Input 
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={newTask.title}
+          onChange={(e) => setNewTask(prev => ({ ...prev, title: e.target.value }))}
           isError={isError}
         />
         <DescInput 
-          value={desc}
-          onChange={setDesc}
+          value={newTask.desc}
+          onChange={(value) => setNewTask(prev => ({ ...prev, desc: value }))}
         />
         <div className='w-full flex justify-end gap-3 mt-3'>
           <CancelButton onClick={onClose}/>
