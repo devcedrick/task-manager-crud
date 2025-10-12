@@ -8,9 +8,10 @@ interface TaskCardProps {
   title: string;
   desc: string;
   onDelete: (id: string) => Promise<unknown>;
+  onEdit?: () => void;
 }
 
-const TaskCard: React.FC<TaskCardProps> = ({id, title, desc, onDelete}) => {
+const TaskCard: React.FC<TaskCardProps> = ({id, title, desc, onDelete, onEdit}) => {
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
   const dropdownAreaRef = React.useRef<HTMLDivElement>(null);
 
@@ -38,10 +39,16 @@ const TaskCard: React.FC<TaskCardProps> = ({id, title, desc, onDelete}) => {
   const handleDelete = () => {
     setIsDropdownOpen(false);
     toast.promise(onDelete(id), {
+      loading: 'Deleting task...',
       success: 'Task Deleted Successfully',
       error: 'Failed to Delete Task',
     });
   };
+
+  const handleEdit = () => {
+    setIsDropdownOpen(false);
+    onEdit?.();
+  }
 
   return (
     <div className='flex flex-col relative bg-surface h-60 p-6 rounded-md shadow-md border border-border'>
@@ -53,7 +60,7 @@ const TaskCard: React.FC<TaskCardProps> = ({id, title, desc, onDelete}) => {
             <Ellipsis className='transition-all duration-150 ease-in-out hover:scale-130'/>
           </button>
           {isDropdownOpen && (
-            <Dropdown onDelete={handleDelete} />
+            <Dropdown onDelete={handleDelete} onEdit={handleEdit} />
           )}
         </div>
       </div>
