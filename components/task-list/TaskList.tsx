@@ -73,7 +73,7 @@ const TaskList = () => {
       )}
       <>
         {tasks.length ?
-          <div className='w-full h-max grid grid-cols-1 lg:grid-cols-4 gap-4 pt-10 lg:pt-15'>
+          <div className='w-full h-max grid grid-cols-1 lg:grid-cols-4 gap-4 pt-5 pb-20 lg:pt-10'>
               {
                 tasks.map(task => (
                   <TaskCard

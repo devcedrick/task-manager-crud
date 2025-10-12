@@ -12,8 +12,8 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Task Manager",
-  description: "A simple task manager built with Next.js and Supabase.",
+  title: "To do - DevDotCed",
+  description: "A simple to-do list built with Next.js and Supabase.",
 };
 
 export default function RootLayout({

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import AddButton from "@/components/AddButton";
 import AddTaskModal from "@/components/add-task-modal/AddTaskModal";
 import TaskList from "@/components/task-list/TaskList";
-import { toast } from 'sonner'
 
 
 export default function Home() {
@@ -19,11 +18,14 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen px-5 lg:px-15">
+    <div className="min-h-screen px-8 sm:px-15">
       <div className="flex justify-center sm:justify-start pt-28 ">
         <AddButton content='Add Task' handleClick={() => setIsModalOpen(true)} />
       </div>
-
+      
+      <p className="mt-10 text-xs font-['Arial'] text-gray-500">
+        The system is currently accessible to the public, allowing anyone with the website link to add, modify, or update tasks. User authentication is actively under development by the developer, Ken Cedrick A. Jimeno. Stay tune for more updates!
+      </p>
       <div className='bg-gray-800 w-full border opacity-10 mt-5'></div>
       {
         isModalOpen ? 

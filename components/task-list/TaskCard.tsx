@@ -51,9 +51,9 @@ const TaskCard: React.FC<TaskCardProps> = ({id, title, desc, onDelete, onEdit}) 
   }
 
   return (
-    <div className='flex flex-col relative bg-surface h-auto lg:h-60 p-6 rounded-md shadow-md border border-border'>
-      <div className='flex h-15 overflow-hidden'>
-        <h1 className='flex-1 text-lg font-bold'>{title}</h1>
+    <div className='flex flex-col relative bg-surface h-max lg:h-60 p-6 rounded-md shadow-md border border-border'>
+      <div className='flex h-auto sm:h-15 lg:overflow-hidden'>
+        <h1 className='flex-1 text-base sm:text-lg font-bold'>{title}</h1>
         <div ref={dropdownAreaRef}>
           <button className='flex justify-center w-10 cursor-pointer rounded-full '
             onClick={toggleDropdown}>
