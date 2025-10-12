@@ -44,6 +44,43 @@ const TaskList = () => {
     fetchTasks();
   }, []);
 
+  // Realtime updates: reflect inserts/updates/deletes without manual refresh
+  useEffect(() => {
+    const channel = supabase
+      .channel('realtime:tasks')
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'tasks' },
+        (payload) => {
+          const newTask = payload.new as unknown as Task;
+          // Prevent duplicates if this client also inserted and already updated state
+          setTasks((prev) => (prev.some((t) => t.task_id === newTask.task_id) ? prev : [newTask, ...prev]));
+        }
+      )
+      .on(
+        'postgres_changes',
+        { event: 'UPDATE', schema: 'public', table: 'tasks' },
+        (payload) => {
+          const updated = payload.new as unknown as Task;
+          setTasks((prev) => prev.map((t) => (t.task_id === updated.task_id ? { ...t, title: updated.title, desc: updated.desc } : t)));
+        }
+      )
+      .on(
+        'postgres_changes',
+        { event: 'DELETE', schema: 'public', table: 'tasks' },
+        (payload) => {
+          const removedId = (payload.old as { task_id?: string })?.task_id;
+          if (!removedId) return;
+          setTasks((prev) => prev.filter((t) => t.task_id !== removedId));
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
   const deleteTask = async (id: string) => {
     setIsDeleting(true);
     try {
@@ -73,7 +110,7 @@ const TaskList = () => {
       )}
       <>
         {tasks.length ?
-          <div className='w-full h-max grid grid-cols-1 lg:grid-cols-4 gap-4 pt-5 pb-20 lg:pt-10'>
+          <div className='w-full h-max grid grid-cols-1 lg:grid-cols-4 gap-4 pt-5 pb-10 lg:pt-10'>
               {
                 tasks.map(task => (
                   <TaskCard
