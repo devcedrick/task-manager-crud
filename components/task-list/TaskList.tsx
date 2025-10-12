@@ -124,7 +124,9 @@ const TaskList = () => {
                 )) 
               }
           </div> : 
-          <div className='w-full h-screen flex items-center justify-center text-gray-400 text-4xl'>No task added yet.</div>
+          <div className='w-full h-screen flex items-center justify-center'>
+            <p className=' text-gray-400 text-2xl lg:text-4xl'>No task added yet.</p>
+          </div>
         }
         {isModalOpen && (
           <div className="absolute flex items-center justify-center top-0 left-0 z-100 h-screen w-full backdrop-blur-sm">
