@@ -32,7 +32,7 @@ const DescInput: React.FC<DescInputProps> = ({ value, onChange }) => {
         onInput={handleInput}
         contentEditable={true}
         tabIndex={0}
-        className="w-full h-24 px-4 py-2 border rounded-md bg-surface-2 input-focus overflow-y-auto"
+        className="w-full h-32 px-4 py-2.5 border rounded-md bg-surface-2 input-focus overflow-y-auto"
         style={{ borderColor: 'var(--border)' }}
         role="textbox"
         aria-multiline="true"

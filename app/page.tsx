@@ -1,14 +1,12 @@
 "use client"
-import AddTaskModal from "@/components/add-task-modal/AddTaskModal";
-import { useState } from "react";
+import TaskList from "@/components/task-list/TaskList";
 
 
 export default function Home() {
 
   return (
-    <div className="font-sans grid grid-cols-4  items-center justify-center min-h-screen w-full">
-      
-      
+    <div className="min-h-screen w-full">
+      <TaskList />  
     </div>
   );
 }
