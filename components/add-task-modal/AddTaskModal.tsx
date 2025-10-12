@@ -29,6 +29,18 @@ const AddTaskModal: React.FC<AddTaskModalProps> = ({ affirmativeAct, isOpen, onC
 
   React.useEffect(() => {
     if (isOpen) {
+      // Lock body scroll while modal is open
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [isOpen]);
+
+  React.useEffect(() => {
+    if (isOpen) {
       if (affirmativeAct.toLowerCase() === 'edit') {
         setNewTask({
           title: initialTitle ?? '',
@@ -85,7 +97,7 @@ const AddTaskModal: React.FC<AddTaskModalProps> = ({ affirmativeAct, isOpen, onC
   if (!isOpen) return null;
 
   return (
-    <div className='bg-surface w-150 justify-center items-start p-8 rounded-md shadow-md border border-border'>
+    <div className='bg-surface w-[95vw] sm:w-150 justify-center items-start p-8 rounded-md shadow-md border border-border max-h-[85vh] overflow-y-auto'>
       <h1 className='ml-2 mb-3 text-2xl font-bold'>{affirmativeAct.toLowerCase() === 'edit' ? 'Edit Task' : 'Add New Task'}</h1>
       <form onSubmit={handleSubmitTask} className=' flex flex-col gap-5'>
           <Input 
