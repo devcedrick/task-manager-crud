@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Input from './Input'
 import DescInput from './DescInput'
 import AddButton from '../AddButton'
-import CancelButton from './CancelButton'
+import CancelButton from '../CancelButton'
 import { supabase } from '@/lib/supabase-client'
 import { toast } from 'sonner'
 

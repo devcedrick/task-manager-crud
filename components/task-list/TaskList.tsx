@@ -67,13 +67,13 @@ const TaskList = () => {
   }
 
   return (
-    <div className='w-screen h-screen'>
+    <div className='w-full h-screen'>
       {(isFetching || isDeleting) && (
         <LoadingOverlay message={isFetching ? 'Loading tasks...' : 'Deleting task...'} />
       )}
       <>
         {tasks.length ?
-          <div className='w-full h-max grid grid-cols-4 gap-4 p-10 pt-30'>
+          <div className='w-full h-max grid grid-cols-1 lg:grid-cols-4 gap-4 pt-10 lg:pt-15'>
               {
                 tasks.map(task => (
                   <TaskCard

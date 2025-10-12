@@ -13,10 +13,10 @@ const AddButton: React.FC<AddButtonProps> = ({content, handleClick, type = 'butt
     <button
       type={type}
       disabled={disabled}
-      className='button bg-primary text-background bg-accent transition hover:bg-accent-600 disabled:opacity-60 disabled:cursor-not-allowed'
+      className='button text-sm sm:text-base text-background bg-accent transition max-sm:w-full hover:bg-accent-600 disabled:opacity-60 disabled:cursor-not-allowed'
       onClick={handleClick}
     >
-      <Plus className='inline mr-2' size={18}/>
+      <Plus className='inline mr-1 lg:mr-2' size={18}/>
       {content}
     </button>
   )
