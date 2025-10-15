@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import "tailwindcss";
+
 
 :root {
   --background: #0B1015;
@@ -23,10 +23,15 @@
   --color-accent-600: var(--accent-600);
   --color-border: var(--border);
   --color-shadow: var(--shadow);
+  /* Use next/font variable injected by layout.tsx */
   --font-sans: 'Space Mono', monospace;
 }
 
 @layer utilities {
+  .input {
+    @apply border border-border bg-surface-2 px-4 py-2 w-full rounded-md placeholder:text-muted;
+  }
+  
   .input-focus {
     @apply focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background;
   }

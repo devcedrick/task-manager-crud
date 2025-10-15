@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Mono } from "next/font/google";
 import "./globals.css";
-
-import Header from "@/components/header/Header";
+import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "sonner";
 
 const spaceMono = Space_Mono({
@@ -12,11 +11,11 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "To do - DevDotCed",
-  description: "A simple to-do list built with Next.js and Supabase.",
+  title: "Rivet",
+  description: "A simple to-do list for daily use.",
 };
 
-export default function RootLayout({
+export default function BaseLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -26,9 +25,10 @@ export default function RootLayout({
       <body
         className={`${spaceMono.variable} antialiased relative`}
       >
-        <Toaster position="top-center" richColors />
-        <Header />
-        {children}
+        <AuthProvider>
+          <Toaster position="top-center" richColors />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
